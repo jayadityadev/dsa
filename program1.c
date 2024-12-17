@@ -9,7 +9,7 @@ struct date {
 };
 
 struct calendar {
-	char week[7];
+	char dayname[10];
 	struct date d;
 	char activity[25];
 };
@@ -34,7 +34,7 @@ void read() {
 		printf("Enter the week activity details for day %d:\n", i+1);
 		__fpurge(stdin);
 		printf("Enter day name: ");
-		scanf("%s", mycal[i].week);
+		scanf("%s", mycal[i].dayname);
 		printf("Enter date (DD MM YYYY): ");
 		scanf("%d%d%d", &mycal[i].d.day, &mycal[i].d.month, &mycal[i].d.year);
 		printf("Enter day activity: ");
@@ -45,7 +45,7 @@ void read() {
 void display() {
 	printf("\nWeekly Activity Report:\n");
 	for (int i = 0; i < 7; i++) {
-		printf("Day Name: %s\n", mycal[i].week);
+		printf("Day Name: %s\n", mycal[i].dayname);
 		printf("Date: %02d/%02d/%04d\n", mycal[i].d.day, mycal[i].d.month, mycal[i].d.year);
 		printf("Activity: %s\n", mycal[i].activity);
 	}
