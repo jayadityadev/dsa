@@ -77,7 +77,7 @@ NODE delete_end(NODE start) {
 		}
 		printf("\nDeleted node is:\n");
 		printf("%d, %s, %s, %s, %s, %.2f\n", temp -> ssn, temp -> name, temp -> dept, temp -> desgn, temp -> phno, temp -> salary);
-                free(temp);
+        free(temp);
 	}
 	return start;
 }
