@@ -107,14 +107,14 @@ NODE list_stack(NODE start1) {
 	int choice;
 	printf("\nOperations on List as Stack:\n");
 	while (1) {
-		printf("1.Push\n2.Pop\n3.Display\n4.Exit\n");
+		printf("1.Push\n2.Pop\n3.Display\n4.Back to Main Menu\n");
 		printf("Enter your choice: ");
 		scanf("%d", &choice);
 		switch (choice) {
 			case 1: start1 = insert_front(start1); break;
 			case 2: start1 = delete_front(start1); break;
 			case 3: display(start1); break;
-			case 4: exit(0);
+			case 4: return start1;
 			default: printf("Invalid option!\n");
 		}
 	}
