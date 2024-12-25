@@ -35,21 +35,21 @@ void dfs(int startVertex) {
 
 int main() {
     int choice, startVertex, i, j;
-    printf("\nEnter the number of vertices in graph:  ");
+    printf("Enter the number of vertices in graph:  ");
     scanf("%d", &numVertices);
-    printf("\nEnter the adjacency matrix:\n");
+    printf("Enter the adjacency matrix:\n");
     for (i = 1; i <= numVertices; i++) {
         for (j = 1; j <= numVertices; j++) {
             scanf("%d", &adjacencyMatrix[i][j]);
         }
     }
 
-    printf("\nEnter the starting vertex: ");
+    printf("Enter the starting vertex: ");
     scanf("%d", &startVertex);
 
-    printf("\n==>1. BFS: Print all nodes reachable from a given starting node");
-    printf("\n==>2. DFS: Print all nodes reachable from a given starting node");
-    printf("\n==>3: Exit");
+    printf("\n1. BFS traversal");
+    printf("\n2. DFS traversal");
+    printf("\n3: Exit");
     printf("\nEnter your choice: ");
     scanf("%d", &choice);
 
