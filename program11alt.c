@@ -44,9 +44,6 @@ int main() {
         }
     }
 
-    for (i = 1; i <= numVertices; i++) {
-        visited[i] = 0;
-    }
     printf("\nEnter the starting vertex: ");
     scanf("%d", &startVertex);
 
@@ -55,24 +52,30 @@ int main() {
     printf("\n==>3: Exit");
     printf("\nEnter your choice: ");
     scanf("%d", &choice);
+
     switch (choice) {
         case 1:
             printf("\nNodes reachable from starting vertex %d are: ", startVertex);
-            bfs(startVertex);
             for (i = 1; i <= numVertices; i++) {
-                if (visited[i] == 0) {
-                    printf("\nThe vertex that is not reachable is %d", i);
-                }
+                visited[i] = 0;
             }
+            bfs(startVertex);
             break;
 
         case 2:
             printf("\nNodes reachable from starting vertex %d are:\n", startVertex);
+            for (i = 1; i <= numVertices; i++) {
+                visited[i] = 0;
+            }
             dfs(startVertex);
             break;
+
         case 3:
             exit(0);
+
         default:
-            printf("\nPlease enter valid choice:");
+            printf("\nPlease enter a valid choice:");
     }
+
+    return 0;
 }
