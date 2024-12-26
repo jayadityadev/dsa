@@ -53,33 +53,33 @@ void display(NODE head) {
 	}
 }
 
-NODE add_polynomial(NODE h1, NODE h2, NODE h3) {
-	NODE p1, p2;
-	int cof;
-	p1 = h1 -> link;
-	while (p1 != h1) {
-		p2 = h2 -> link;
-		while (p2 != h2) {
-			if (p1->px == p2->px && p1->py == p2->py && p1->pz == p2->pz)
+NODE add_polynomial(NODE head1, NODE head2, NODE head3) {
+	NODE temp1, temp2;
+	int coefficient;
+	temp1 = head1 -> link;
+	while (temp1 != head1) {
+		temp2 = head2 -> link;
+		while (temp2 != head2) {
+			if (temp1->px == temp2->px && temp1->py == temp2->py && temp1->pz == temp2->pz)
 				break;
-			p2 = p2 -> link;
+			temp2 = temp2 -> link;
 		}
-		if (p2 != h2) {
-			cof = p1->cf + p2->cf;
-			p2 -> flag = 1;
-			if (cof != 0)
-				h3 = insert_end(cof, p1->px, p1->py, p1->pz, h3);
+		if (temp2 != head2) {
+			coefficient = temp1->cf + temp2->cf;
+			temp2 -> flag = 1;
+			if (coefficient != 0)
+				head3 = insert_end(coefficient, temp1->px, temp1->py, temp1->pz, head3);
 		} else
-			h3 = insert_end(p1->cf, p1->px, p1->py, p1->pz, h3);
-		p1 = p1 -> link;
+			head3 = insert_end(temp1->cf, temp1->px, temp1->py, temp1->pz, head3);
+		temp1 = temp1 -> link;
 	}
-	p2 = h2 -> link;
-	while (p2 != h2) {
-		if (p2->flag == 0)
-			h3 = insert_end(p2->cf, p2->px, p2->py, p2->pz, h3);
-		p2 = p2 -> link;
+	temp2 = head2 -> link;
+	while (temp2 != head2) {
+		if (temp2->flag == 0)
+			head3 = insert_end(temp2->cf, temp2->px, temp2->py, temp2->pz, head3);
+		temp2 = temp2 -> link;
 	}
-	return h3;
+	return head3;
 }
 
 NODE read_polynomial(NODE head) {
@@ -106,7 +106,7 @@ void polysum() {
 	h2 -> link = h2;
 	h3 -> link = h3;
 	printf("\n\nEnter the first polynomial:\n"); h1 = read_polynomial(h1);
-        printf("\n\nEnter the second polynomial:\n"); h2 = read_polynomial(h2);
+    printf("\n\nEnter the second polynomial:\n"); h2 = read_polynomial(h2);
 	h3 = add_polynomial(h1, h2, h3);
 	printf("\nFirst polynomial: "); display(h1);
 	printf("\nSecond polynomial: "); display(h2);
