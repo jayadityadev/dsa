@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<string.h>
 
 // Enumeration data type for precedence of operators
 typedef enum {
@@ -60,30 +61,30 @@ void displaytoken(precedence token) {
 	}
 }
 
-void infixtopost() {
-	precedence token, token1;
+void infixToPostfix() {
+	precedence currentToken, poppedToken;
 	stack[0] = eos;
-	token = readtoken();
-	while (token != eos) {
-		if (token == operand) {
+	currentToken = readtoken();
+	while (currentToken != eos) {
+		if (currentToken == operand) {
 			printf("%c", symbol);
-		} else if (token == rparen) {
+		} else if (currentToken == rparen) {
 			while (stack[top] != lparen) {
-				token1 = pop();
-				displaytoken(token1);
+				poppedToken = pop();
+				displaytoken(poppedToken);
 			}
 			pop();
 		} else {
-			while (isp[stack[top]] >= icp[token]) {
-				token1 = pop();
-				displaytoken(token1);
+			while (isp[stack[top]] >= icp[currentToken]) {
+				poppedToken = pop();
+				displaytoken(poppedToken);
 			}
-			push(token);
+			push(currentToken);
 		}
-		token = readtoken();
+		currentToken = readtoken();
 	}
-	while ((token = pop()) != eos) {
-		displaytoken(token);
+	while ((currentToken = pop()) != eos) {
+		displaytoken(currentToken);
 	}
 	printf("\n");
 }
@@ -91,9 +92,10 @@ void infixtopost() {
 void main() {
 	printf("Program to convert infix expression to postfix expression\n\n");
 	printf("Enter infix expression: ");
-	gets(expression);
+	fgets(expression, sizeof(expression), stdin);
+	expression[strcspn(expression, "\n")] = '\0';
 	printf("Postfix expression: ");
-	infixtopost();
+	infixToPostfix();
 }
 
 
