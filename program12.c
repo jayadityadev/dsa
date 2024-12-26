@@ -7,45 +7,46 @@ struct record {
 	char name[10];
 } emp[100];
 
-int hash(int m) {
-	return m % 100;
+int hash(int empno) {
+	return empno % 100;
 }
 
 void main() {
-	int m, k, eno, loc, n, j, i;
-	char name[10];
-	FILE *in;
+	int numRecords, index, empno, hashIndex, numRecordsToRead, probeIndex, i;
+	char empName[10];
+	FILE *inputFile;
 	printf("Enter number of records to read from file: ");
-	scanf("%d", &n);
-	in = fopen("input.txt", "r");
-	if (n <= 10) {
-		for (k = 0; k < 100; k++)
-			emp[k].flag = 0;
-		for (i = 0; i < n; i++) {
-			fscanf(in, "%d%s", &eno, name);
-			loc = hash(eno);
-			if (emp[loc].flag == 0) {
-				printf("\nRecord: %d is mapped to address: %d\n", i, loc);
-				emp[loc].empno = eno;
-				emp[loc].flag = 1;
-				strcpy(emp[loc].name, name);
+	scanf("%d", &numRecordsToRead);
+	inputFile = fopen("input.txt", "r");
+	fscanf(inputFile, "%d", &numRecords);
+	if (numRecordsToRead <= numRecords) {
+		for (index = 0; index < 100; index++)
+			emp[index].flag = 0;
+		for (i = 0; i < numRecordsToRead; i++) {
+			fscanf(inputFile, "%d%s", &empno, empName);
+			hashIndex = hash(empno);
+			if (emp[hashIndex].flag == 0) {
+				printf("\nRecord: %d is mapped to address: %d\n", i, hashIndex);
+				emp[hashIndex].empno = empno;
+				emp[hashIndex].flag = 1;
+				strcpy(emp[hashIndex].name, empName);
 			} else {
 				printf("\nCollision occurred for record: %d. Resolved using linear probing.\n", i);
-				for (j = loc + 1; j < 100; j++) {
-					if (emp[j].flag == 0) {
-						printf("\nRecord: %d is at address: %d\n", i, j);
-						strcpy(emp[j].name, name);
-						emp[j].empno = eno;
-						emp[j].flag = 1;
+				for (probeIndex = hashIndex + 1; probeIndex < 100; probeIndex++) {
+					if (emp[probeIndex].flag == 0) {
+						printf("\nRecord: %d is at address: %d\n", i, probeIndex);
+						strcpy(emp[probeIndex].name, empName);
+						emp[probeIndex].empno = empno;
+						emp[probeIndex].flag = 1;
 						break;
 					}
 				}
-				if (j >= 100) {
+				if (probeIndex >= 100) {
 					printf("Hash Table is full!\n");
 				}
 			}
 		}
-		fclose(in);
+		fclose(inputFile);
 		printf("\nThe Hash Table contents are:\n");
 		for (i = 0; i < 100; i++) {
 			if (emp[i].flag == 1)
